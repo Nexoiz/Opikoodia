@@ -1,6 +1,6 @@
 var canvas;
 var ctx; //context
-var running=0;
+var running = 0;
 var interval;
 
 window.onload = function() {
@@ -29,9 +29,11 @@ function startCanvas() {
     if(running) {
         running = 0;
         clearInterval(interval);
+        document.getElementById("startbutton").innerHTML = "Start";
     } else {
         running = 1;
         interval = setInterval(createRect, 200);
+        document.getElementById("startbutton").innerHTML = "Stop";
     }
 }
 
