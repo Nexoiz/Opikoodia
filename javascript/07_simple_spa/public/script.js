@@ -62,7 +62,7 @@ createForm = () => {
 	let phoneText = document.createTextNode("Phone");
 	phoneLabel.appendChild(phoneText);
 	
-	//submit Button
+	//Submit button
 	
 	let submitButton = document.createElement("input");
 	submitButton.setAttribute("type","submit");
