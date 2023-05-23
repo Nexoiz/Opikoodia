@@ -41,11 +41,20 @@ app.post("/api/contact",function(req,res) {
         "email":req.body.email,
         "phone":req.body.phone
     })
-    contact.sage().then(function(contact) {
+    contact.save().then(function(contact) {
         return res.status(201).json(contact);
     }).catch(function(err) {
         console.log("Database returned an error",err);
-        return res.status(500).json({"Message":"Internal server error"})
+        return res.status(500).json({"Message":"Internal server error"});
+    })
+})
+
+app.delete("/api/contact/:id",function(req,res) {
+    contactModel.deleteOne({"_id":req.params.id}).then(function() {
+        return res.status(200).json({"Message":"Success"})
+    }).catch(function(err) {
+        console.log("Database returned an error",err);
+        return res.status(500).json({"Message":"Internal server error"});
     })
 })
 
