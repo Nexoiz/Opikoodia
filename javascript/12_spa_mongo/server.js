@@ -4,6 +4,8 @@ const contactModel = require("./models/contact")
 
 let app = express();
 
+app.use(express.json());
+
 let port = process.env.PORT || 3000;
 
 const mongo_url = process.env.MONGODB_URL;
@@ -22,6 +24,27 @@ app.get("/api/contact",function(req,res) {
         return res.status(200).json(contacts)
     }).catch(function(err) {
         console.log("Database returned an error.",err)
+        return res.status(500).json({"Message":"Internal server error"})
+    })
+})
+
+app.post("/api/contact",function(req,res) {
+    if(!req.body) {
+        return res.status(400).json({"Message":"Bad request"})
+    }
+    if(!req.body.firstname) {
+        return res.status(400).json({"Message":"Bad request"})
+    }
+    let contact = new contactModel ({
+        "firstname":req.body.firstname,
+        "lastname":req.body.lastname,
+        "email":req.body.email,
+        "phone":req.body.phone
+    })
+    contact.sage().then(function(contact) {
+        return res.status(201).json(contact);
+    }).catch(function(err) {
+        console.log("Database returned an error",err);
         return res.status(500).json({"Message":"Internal server error"})
     })
 })
