@@ -6,6 +6,8 @@ let app = express();
 
 app.use(express.json());
 
+app.use("/",express.static("public"));
+
 let port = process.env.PORT || 3000;
 
 const mongo_url = process.env.MONGODB_URL;
