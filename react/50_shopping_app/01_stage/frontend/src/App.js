@@ -2,6 +2,8 @@ import './App.css';
 import {useState,useEffect} from 'react';
 import ShoppingForm from './components/ShoppingForm';
 import ShoppingList from './components/ShoppingList';
+import Navbar from './components/Navbar';
+import {Routes,Route,Navigate} from 'react-router-dom';
 
 function App() {
 	
@@ -111,8 +113,12 @@ function App() {
 	
 	return (
 		<div className="App">
-			<ShoppingForm addItem={addItem}/>
-			<ShoppingList list={state.list} removeItem={removeItem} editItem={editItem}/>
+			<Navbar/>
+			<Routes>
+				<Route path="/" element={<ShoppingList list ={state.list} removeItem={removeItem} editItem={editItem}/>}/>
+				<Route path="/form" element={<ShoppingForm addItem={addItem}/>}/>
+				<Route path="*" element={<Navigate to="/"/>}/>
+			</Routes>
 		</div>
 	);
 }
