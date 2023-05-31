@@ -138,7 +138,7 @@ app.post("/login",function(req,res) {
 	})
 })
 
-app.use("/api",shoppingRoute);
+app.use("/api",isUserLogged,shoppingRoute);
 
 app.listen(port);
 console.log("Running in port",port);
