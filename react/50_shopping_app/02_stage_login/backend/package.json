@@ -11,7 +11,7 @@
     "mongoose",
     "mern"
   ],
-  "author": "Erno",
+  "author": "Jussi",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.1.0",
