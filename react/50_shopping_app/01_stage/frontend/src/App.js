@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import {useState,useEffect} from 'react';
 import ShoppingForm from './components/ShoppingForm';
@@ -15,10 +14,10 @@ function App() {
 		request:{},
 		action:""
 	})
-
+	
 	useEffect(() => {
 		getList();
-	})
+	},[])
 	
 	//USEEFFECT
 	
