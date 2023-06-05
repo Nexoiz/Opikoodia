@@ -53,8 +53,8 @@ const LoginPage = (props) => {
                         className="form-control"
                         onChange={onChange}
                         value={state.password}/>
-                <button name="register" onClick={onSubmit} className="btn btn-secondary">Register</button>
-                <button name="Login" onClick={onSubmit} className="btn btn-secondary">Login</button>
+                <button name="register" onClick={onSubmit} style={{marginRight:5}} className="btn btn-secondary" >Register</button>
+                <button name="Login" onClick={onSubmit} style={{marginLeft:5}} className="btn btn-secondary">Login</button>
             </form>
         </div>
     )
