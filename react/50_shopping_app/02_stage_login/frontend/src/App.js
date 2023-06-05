@@ -8,7 +8,12 @@ import {Routes,Route,Navigate} from 'react-router-dom';
 function App() {
 	
 	const [state,setState] = useState({
-		list:[]
+		list:[],
+		isLogged:false,
+		token:"",
+		loading:false,
+		error:"",
+		user:""
 	})
 	
 	const [urlRequest,setUrlRequest] = useState({
@@ -17,9 +22,42 @@ function App() {
 		action:""
 	})
 	
+	//HELPER FUNCTIONS
+
 	useEffect(() => {
-		getList();
+		if(sessionStorage.getItem("state")) {
+			let state = JSON.parse(sessionStorage.getItem("state"));
+			setState(state);
+			if(state.isLogged) {
+				getList(state.token)
+			}
+		}
 	},[])
+
+	const saveToStorage = (state) => {
+		sessionStorage.setItem("state",JSON.stringify(state));
+	}
+
+	const setLoading = (loading) => {
+		setState((state) => {
+			return {
+				...state,
+				loading:loading,
+				error:""
+			}
+		})
+	}
+
+	const setError = (error) => {
+		setState((state) => {
+			let tempState = {
+				...state,
+				error:error
+			}
+			saveToStorage(tempState);
+			return tempState;
+		})
+	}	
 	
 	//USEEFFECT
 	
