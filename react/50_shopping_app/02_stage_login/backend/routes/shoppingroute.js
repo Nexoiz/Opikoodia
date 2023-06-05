@@ -55,7 +55,8 @@ router.put("/shopping/:id",function(req,res) {
 	let item = {
 		"type":req.body.type,
 		"count":req.body.count,
-		"price":req.body.price
+		"price":req.body.price,
+		"user":req.session.user
 	}
 	itemModel.replaceOne({"_id":req.params.id,"user":req.session.user},item).then(function(stats) {
 		console.log(stats);
