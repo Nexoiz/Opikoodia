@@ -101,11 +101,18 @@ function App() {
 	
 	//REST API
 	
-	const getList = () => {
+	const getList = (token) => {
+		let tempToken = state.token;
+		if(token) {
+			tempToken = token;
+		}
 		setUrlRequest({
 			url:"/api/shopping",
 			request:{
-				"method":"GET"
+				"method":"GET",
+				"headers":{
+					"token":tempToken
+				}
 			},
 			action:"getlist"			
 		})
@@ -117,7 +124,8 @@ function App() {
 			request:{
 				"method":"POST",
 				"headers":{
-					"Content-Type":"application/json"
+					"Content-Type":"application/json",
+					"token":state.token
 				},
 				"body":JSON.stringify(item)
 			},
@@ -129,7 +137,10 @@ function App() {
 		setUrlRequest({
 			url:"/api/shopping/"+id,
 			request:{
-				"method":"DELETE"
+				"method":"DELETE",
+				"headers":{
+					"token":state.token
+				}
 			},
 			action:"removeitem"
 		})
@@ -141,11 +152,54 @@ function App() {
 			request:{
 				"method":"PUT",
 				"headers":{
-					"Content-Type":"application/json"
+					"Content-Type":"application/json",
+					"token":state.token
 				},
 				"body":JSON.stringify(item)
 			},
 			action:"edititem"
+		})
+	}
+
+	//LOGIN API
+	const register = (user) => {
+		setUrlRequest({
+			url:"/register",
+			request:{
+				method:"POST",
+				headers:{
+					"Content-Type":"application/json"
+				},
+				body:JSON.stringify(user)
+			},
+			action:"register"
+		})
+	}
+
+	const login = (user) => {
+		setUrlRequest({
+			url:"/login",
+			request:{
+				method:"POST",
+				headers:{
+					"Content-Type":"application/json"
+				},
+				body:JSON.stringify(user)
+			},
+			action:"login"
+		})
+	}
+
+	const logout = () => {
+		setUrlRequest({
+			url:"/logout",
+			request:{
+				method:"POST",
+				headers:{
+					"token":state.token
+				}
+			},
+			action:"logout"
 		})
 	}
 	
