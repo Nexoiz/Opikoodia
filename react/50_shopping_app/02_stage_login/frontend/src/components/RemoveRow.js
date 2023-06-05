@@ -5,10 +5,10 @@ const RemoveRow = (props) => {
 			<td>{props.item.type}</td>
 			<td>{props.item.count}</td>
 			<td>{props.item.price}</td>
-			<td><button className="btn btn-secondary"
+			<td><button className="btn btn-danger"
 				onClick={() => props.changeMode("cancel")}
 			>Cancel</button></td>
-			<td><button className="btn btn-danger"
+			<td><button className="btn btn-success"
 				onClick={() => props.removeItem(props.item._id)}
 			>Confirm</button></td>
 		</tr>	

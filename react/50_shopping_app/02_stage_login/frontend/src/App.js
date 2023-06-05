@@ -23,22 +23,22 @@ function App() {
 		action:""
 	})
 	
-	//HELPER FUNCTIONS
-
+	//HELPER FUNCTION
+	
 	useEffect(() => {
 		if(sessionStorage.getItem("state")) {
 			let state = JSON.parse(sessionStorage.getItem("state"));
 			setState(state);
 			if(state.isLogged) {
-				getList(state.token)
+				getList(state.token);
 			}
 		}
 	},[])
-
+	
 	const saveToStorage = (state) => {
 		sessionStorage.setItem("state",JSON.stringify(state));
 	}
-
+	
 	const setLoading = (loading) => {
 		setState((state) => {
 			return {
@@ -48,7 +48,7 @@ function App() {
 			}
 		})
 	}
-
+	
 	const setError = (error) => {
 		setState((state) => {
 			let tempState = {
@@ -59,9 +59,9 @@ function App() {
 			return tempState;
 		})
 	}
-
+	
 	const clearState = (error) => {
-		let state ={
+		let state = {
 			list:[],
 			isLogged:false,
 			loading:false,
@@ -72,7 +72,6 @@ function App() {
 		saveToStorage(state);
 		setState(state);
 	}
-	
 	//USEEFFECT
 	
 	useEffect(() => {
@@ -116,7 +115,7 @@ function App() {
 					case "login":
 						const loginData = await response.json();
 						if(!loginData) {
-							setError("Failed to parse login information. Try again later.")
+							setError("Failed to parse login information. Try again later.");
 							return;
 						}
 						setState((state) => {
@@ -141,7 +140,7 @@ function App() {
 					clearState("Your session has expired. Logging you out.");
 					return;
 				}
-				let errorMessage = "Server responded with a status "+response.status+" "+response.statusText;
+				let errorMessage = " Server responded with a status "+response.status+" "+response.statusText
 				switch(urlRequest.action) {
 					case "register":
 						if(response.status === 409) {
@@ -158,16 +157,20 @@ function App() {
 						setError("Failed to fetch shopping information."+errorMessage);
 						return;
 					case "additem":
-						setError("Failed to add a new item."+errorMessage);
+						setError("Failed to add new item."+errorMessage);
+						return;
+					case "removeitem":
+						setError("Failed to remove item."+errorMessage);
 						return;
 					case "edititem":
 						setError("Failed to edit item."+errorMessage);
 						return;
 					case "logout":
-						clearState("Server responded with an error. Logging you our");
+						clearState("Server responded with an error. Logging you out.");
 						return;
 					default:
 						return;
+						
 				}
 			}
 		}
@@ -177,13 +180,17 @@ function App() {
 	
 	//REST API
 	
-	const getList = (token) => {
+	const getList = (token,search) => {
 		let tempToken = state.token;
 		if(token) {
 			tempToken = token;
 		}
+		let url = "/api/shopping";
+		if(search) {
+			url = url + "?type="+search;
+		}
 		setUrlRequest({
-			url:"/api/shopping",
+			url:url,
 			request:{
 				"method":"GET",
 				"headers":{
@@ -236,8 +243,9 @@ function App() {
 			action:"edititem"
 		})
 	}
-
+	
 	//LOGIN API
+	
 	const register = (user) => {
 		setUrlRequest({
 			url:"/register",
@@ -251,7 +259,7 @@ function App() {
 			action:"register"
 		})
 	}
-
+	
 	const login = (user) => {
 		setUrlRequest({
 			url:"/login",
@@ -271,7 +279,7 @@ function App() {
 			}
 		})
 	}
-
+	
 	const logout = () => {
 		setUrlRequest({
 			url:"/logout",
@@ -284,16 +292,16 @@ function App() {
 			action:"logout"
 		})
 	}
-
-	//RENDERING
-	let message = <h4></h4>
+	
+	// RENDERING
+	
+	let message =<h4></h4>
 	if(state.loading) {
-		message = <h4>Loading...</h4>
+		message = <h4>Loading ...</h4>
 	}
 	if(state.error) {
 		message = <h4>{state.error}</h4>
 	}
-	
 	if(state.isLogged) {
 		return (
 			<div className="App">
@@ -301,8 +309,8 @@ function App() {
 				<div style={{height:25, textAlign:"center"}}>
 					{message}
 				</div>
-				<Routes>
-					<Route path="/" element={<ShoppingList list ={state.list} removeItem={removeItem} editItem={editItem}/>}/>
+				<Routes>			
+					<Route path="/" element={<ShoppingList list={state.list} removeItem={removeItem} editItem={editItem} getList={getList}/>}/>
 					<Route path="/form" element={<ShoppingForm addItem={addItem}/>}/>
 					<Route path="*" element={<Navigate to="/"/>}/>
 				</Routes>
@@ -311,16 +319,16 @@ function App() {
 	} else {
 		return(
 			<div className="App">
-					<Navbar logout={logout} isLogged={state.isLogged} user={state.user}/>
-					<div style={{height:25, textAlign:"center"}}>
-						{message}
-					</div>
-					<Routes>
-						<Route path="/" element={<LoginPage login={login} register={register} setError={setError}/>}/>
-						<Route path="*" element={<Navigate to="/"/>}/>
-					</Routes>
+				<Navbar logout={logout} isLogged={state.isLogged} user={state.user}/>
+				<div style={{height:25, textAlign:"center"}}>
+					{message}
 				</div>
-		);
+				<Routes>			
+					<Route path="/" element={<LoginPage login={login} register={register} setError={setError}/>}/>
+					<Route path="*" element={<Navigate to="/"/>}/>
+				</Routes>
+			</div>		
+		)
 	}
 }
 
