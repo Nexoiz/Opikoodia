@@ -50,7 +50,7 @@ const registerSuccess = () => {
     }
 }
 
-export const registerFailed = () => {
+export const registerFailed = (error) => {
     return {
         type:actionConstants.REGISTER_FAILED,
         error:error
