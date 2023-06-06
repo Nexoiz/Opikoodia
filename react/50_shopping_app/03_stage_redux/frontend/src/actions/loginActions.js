@@ -30,6 +30,60 @@ export const register = (user) => {
     }
 }
 
+export const login = (user) => {
+    return async (dispatch) => {
+        let request = {
+            "method":"POST",
+            "headers":{
+                "Content-Type":"application/json"
+            },
+            "body":JSON.stringify(user)
+        }
+        dispatch(loading());
+        const response = await fetch("/login",request);
+        dispatch(stopLoading());
+        if(!response) {
+            dispatch(registerFailed("Login failed. Server never responded. Try again later"));
+            return;
+        }
+        if(response.ok) {
+            const data = await response.json();
+            if(!data) {
+                dispatch(loginFailed("Login failed. Cannot parse login information"));
+                return;
+            }
+            dispatch(loginSuccess(data.token));
+            dispatch(setUsername(user.username));
+        } else {
+            dispatch(loginFailed("Login failed. Server responded with a status "+response.status+" "+response.statusText));
+        }
+    }
+}
+
+export const logout = (token) => {
+    return async dispatch => {
+        let request = {
+            "method":"POST",
+            "headers":{
+                "token":token
+            }
+        }
+        dispatch(loading());
+        const response = await fetch("/logout",request);
+        dispatch(stopLoading());
+        if(!response) {
+            dispatch(logoutFailed("Server never responded. Logging you out."));
+            return;
+        }
+        if(response.ok) {
+            dispatch(logoutSuccess());
+        } else {
+            dispatch(logoutFailed("Server responded with an error. Logging you out"));
+        }
+    }
+}
+
+
 //ACTION CREATORS
 
 export const loading = () => {
@@ -79,5 +133,11 @@ const logoutSuccess = () => {
 export const logoutFailed = (error) => {
     return {
         type:actionConstants.LOGOUT_FAILED
+    }
+}
+
+const setUsername = (user) => {
+    return {
+        type:actionConstants.SET_USERNAME
     }
 }

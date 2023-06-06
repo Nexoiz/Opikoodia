@@ -3,6 +3,7 @@ import * as actionConstants from '../actions/actionConstants';
 const getInitialState = () => {
     if(sessionStorage.getItem("loginstate")) {
         let state = JSON.parse(sessionStorage.getItem("loginstate"));
+        return state;
     } else {
         return {
             isLogged:false,
