@@ -83,7 +83,6 @@ export const logout = (token) => {
     }
 }
 
-
 //ACTION CREATORS
 
 export const loading = () => {
