@@ -56,3 +56,28 @@ export const registerFailed = (error) => {
         error:error
     }
 }
+
+const loginSuccess = (token) => {
+    return {
+        type:actionConstants.LOGIN_SUCCESS,
+        token:token
+    }
+}
+
+const loginFailed = (error) => {
+    return {
+        type:actionConstants.LOGIN_FAILED
+    }
+}
+
+const logoutSuccess = () => {
+    return {
+        type:actionConstants.LOGOUT_SUCCESS
+    }
+}
+
+export const logoutFailed = (error) => {
+    return {
+        type:actionConstants.LOGOUT_FAILED
+    }
+}
