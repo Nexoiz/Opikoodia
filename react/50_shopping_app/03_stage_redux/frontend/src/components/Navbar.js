@@ -1,9 +1,9 @@
 import {Link} from 'react-router-dom';
-import { useSelector,useDispatch } from 'react-redux';
-import { logout } from '../actions/loginActions';
+import {useSelector,useDispatch} from 'react-redux';
+import {logout} from '../actions/loginActions';
 
 const Navbar = (props) => {
-
+	
 	const dispatch = useDispatch();
 	const state = useSelector(state => state);
 	

@@ -2,8 +2,8 @@ import {useState} from 'react';
 import Row from './Row';
 import RemoveRow from './RemoveRow';
 import EditRow from './EditRow';
-import { useSelector,useDispatch } from 'react-redux';
-import { getList } from '../actions/shoppingActions';
+import {useSelector,useDispatch} from 'react-redux';
+import {getList,remove,edit} from '../actions/shoppingActions';
 
 const ShoppingList = (props) => {
 	
@@ -15,7 +15,7 @@ const ShoppingList = (props) => {
 	const [search,setSearch] = useState({
 		type:""
 	})
-
+	
 	const appState = useSelector(state => state);
 	const dispatch = useDispatch();
 	
@@ -54,12 +54,12 @@ const ShoppingList = (props) => {
 	}
 	
 	const removeItem = (id) => {
-		props.removeItem(id);
+		dispatch(remove(appState.login.token,id));
 		changeMode("cancel");
 	}
 	
 	const editItem = (item) => {
-		props.editItem(item);
+		dispatch(edit(appState.login.token,item));
 		changeMode("cancel");
 	}
 

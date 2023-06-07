@@ -1,6 +1,6 @@
 import {useState} from 'react';
-import { useDispatch } from 'react-redux';
-import { register,registerFailed,login } from '../actions/loginActions';
+import {useDispatch} from 'react-redux';
+import {register,registerFailed,login} from '../actions/loginActions';
 
 const LoginPage = (props) => {
 	
@@ -8,7 +8,7 @@ const LoginPage = (props) => {
 		username:"",
 		password:""
 	})
-
+	
 	const dispatch = useDispatch();
 	
 	const onChange = (event) => {
