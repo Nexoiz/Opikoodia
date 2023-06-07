@@ -7,7 +7,7 @@ export const getList = (token,search) => {
 	return async (dispatch) => {
 		let url = "/api/shopping"
 		if(search) {
-			url = url + search;
+			url = url + "?type=" + search;
 		}
 		let request = {
 			"method":"GET",
