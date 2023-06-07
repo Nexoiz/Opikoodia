@@ -303,7 +303,7 @@ function App() {
 		message = <h4>Loading ...</h4>
 	}
 	if(appState.login.error) {
-		message = <h4>{appState.error}</h4>
+		message = <h4>{appState.login.error}</h4>
 	}
 	if(appState.login.isLogged) {
 		return (

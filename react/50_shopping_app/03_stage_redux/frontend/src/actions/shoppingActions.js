@@ -46,7 +46,7 @@ const fetchListSuccess = (list) => {
     }
 }
 
-const fetchListFailed = (list) => {
+const fetchListFailed = (error) => {
     return {
         type:actionConstants.FETCH_LIST_FAILED,
         error:error
