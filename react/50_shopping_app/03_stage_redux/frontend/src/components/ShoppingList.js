@@ -63,7 +63,7 @@ const ShoppingList = (props) => {
 		changeMode("cancel");
 	}
 
-	let items = props.list.map((item,index) => {
+	let items = appState.shopping.list.map((item,index) => {
 		if(index === state.removeIndex) {
 			return(
 				<RemoveRow key={item._id} item={item} changeMode={changeMode} removeItem={removeItem}/>
