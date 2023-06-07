@@ -38,6 +38,36 @@ export const getList = (token,search) => {
     }
 }
 
+export const add = (token,item) => {
+    return async (dispatch) => {
+        let request = {
+            "method":"POST",
+            "headers":{
+                "Content-Type":"application/json",
+                "token":token
+            },
+            body:JSON.stringify(item)
+        }
+        dispatch(loading());
+        const response = await fetch("/api/shopping",request);
+        dispatch(stopLoading());
+        if(!response) {
+            dispatch(addItemFailed("Server never responded. Try again later."));
+            return;
+        }
+        if(response.ok) {
+            dispatch(addItemSuccess());
+            dispatch(getList(token));
+        } else {
+            if(response.status === 403) {
+                dispatch(logoutFailed("Your sessiojn has expired. Logging you out."));
+                return;
+            }
+            dispatch(addItemFailed("Failed to add new item. Server responded with a status "+response.status+" "+response.statusText));
+        }
+    }
+}
+
 //ACTION CREATORS
 const fetchListSuccess = (list) => {
     return {
