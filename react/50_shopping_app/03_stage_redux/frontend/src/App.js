@@ -299,13 +299,13 @@ function App() {
 	// RENDERING
 	
 	let message =<h4></h4>
-	if(appState.loading) {
+	if(appState.login.loading) {
 		message = <h4>Loading ...</h4>
 	}
-	if(appState.error) {
+	if(appState.login.error) {
 		message = <h4>{appState.error}</h4>
 	}
-	if(appState.isLogged) {
+	if(appState.login.isLogged) {
 		return (
 			<div className="App">
 				<Navbar />
