@@ -68,6 +68,34 @@ export const add = (token,item) => {
     }
 }
 
+export const remove = (token,id) => {
+    return async (dispatch) => {
+        let request = {
+            "method":"DELETE",
+            "headers":{
+                "token":token
+            }
+        }
+        dispatch(loading());
+        const response = await fetch("/api/shopping"+id,request);
+        dispatch(stopLoading());
+        if(!response) {
+            dispatch(removeItemFailed("Server never responded. Try again later."));
+            return;
+        }
+        if(response.ok) {
+            dispatch(removeItemSuccess());
+            dispatch(getList(token));
+        } else {
+            if(response.status === 403) {
+                dispatch(logoutFailed("Your session has expired. Logging you out."));
+                return;
+            }
+            dispatch(removeItemFailed("Removing item failed. Server responded with a status "+response.status+" "+response.statusText));
+        }
+    }
+}
+
 //ACTION CREATORS
 const fetchListSuccess = (list) => {
     return {
@@ -92,6 +120,32 @@ const addItemSuccess = () => {
 const addItemFailed = (error) => {
     return {
         type:actionConstants.ADD_ITEM_FAILED,
+        error:error
+    }
+}
+
+const removeItemSuccess = () => {
+    return {
+        type:actionConstants.REMOVE_ITEM_SUCCESS
+    }
+}
+
+const removeItemFailed = (error) => {
+    return {
+        type:actionConstants.REMOVE_ITEM_FAILED,
+        error:error
+    }
+}
+
+const editItemSuccess = () => {
+    return {
+        type:actionConstants.EDIT_ITEM_SUCCESS
+    }
+}
+
+const editItemFailed = (error) => {
+    return {
+        type:actionConstants.EDIT_ITEM_FAILED,
         error:error
     }
 }
