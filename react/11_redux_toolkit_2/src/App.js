@@ -4,9 +4,17 @@ import ShoppingForm from './components/ShoppingForm';
 import ShoppingList from './components/ShoppingList';
 import Navbar from './components/Navbar';
 import {Routes,Route,Navigate} from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getList } from './store/shoppingSlice';
 
 function App() {
 	
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(getList());
+	})
+
 	return (
 		<div className="App">
 			<Navbar/>
