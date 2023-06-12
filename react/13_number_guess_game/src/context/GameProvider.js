@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import GameContext from '../GameContext';
+import GameContext from '../context/GameContext';
 import { useNavigate } from 'react-router-dom';
 
 const GameProvider = (props) => {
@@ -7,7 +7,7 @@ const GameProvider = (props) => {
     const [state,setState] = useState({
         playerName:"",
         targetNumber:"",
-        noOfGuesses:"",
+        noOfGuesses:0,
         minimumGuess:1,
         maximumGuess:100,
         message:""

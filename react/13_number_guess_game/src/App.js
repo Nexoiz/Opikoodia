@@ -1,11 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
-import GameProvider from './context/GameProvider';
+import StartPage from './components/StartPage';
+import GamePage from './components/GamePage';
+import {Route,Routes} from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-
+      <Routes>
+        <Route path="/" element={<StartPage/>}/>
+        <Route path="/game" element={<GamePage/>}/>
+      </Routes>
     </div>
   );
 }
