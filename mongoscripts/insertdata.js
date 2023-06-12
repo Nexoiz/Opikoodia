@@ -601,7 +601,7 @@ var data = [
 	}
 ];
 
-var conn = new Mongo("mongodb+srv://user:pass@cluster0.fdljp3g.mongodb.net/?retryWrites=true&w=majority");
+var conn = new Mongo("mongodb+srv://user:pass@<addresstocluster>.mongodb.net/?retryWrites=true&w=majority");
 var db = conn.getDB("contactdata");
 
 db.contacts.insertMany(data);

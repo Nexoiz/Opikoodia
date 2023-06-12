@@ -110,5 +110,15 @@ const GameProvider = (props) => {
         }
         console.log("Should not come here");
     }
+
+    return (
+        <GameContext.Provider value={{
+            startGame:startGame,
+            guess:guess,
+            message:state.message
+        }}>
+            {props.children}
+        </GameContext.Provider>
+    )
 }
 export default GameProvider;
