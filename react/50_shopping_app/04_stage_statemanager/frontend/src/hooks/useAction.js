@@ -163,7 +163,7 @@ const useAction = () => {
         })
     }
 
-    return [register,login,logout,setError];
+    return {register,login,logout,setError};
 }
 
 export default useAction;
