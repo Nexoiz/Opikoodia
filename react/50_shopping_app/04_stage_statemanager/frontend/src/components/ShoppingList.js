@@ -3,6 +3,7 @@ import Row from './Row';
 import RemoveRow from './RemoveRow';
 import EditRow from './EditRow';
 import useAppState from '../hooks/useAppState';
+import useAction from '../hooks/useAction';
 
 const ShoppingList = (props) => {
 	
@@ -12,6 +13,7 @@ const ShoppingList = (props) => {
 	})
 	
 	const {list} = useAppState();
+	const {getList,remove,edit} = useAction();
 	
 	const [search,setSearch] = useState({
 		type:""
@@ -24,7 +26,7 @@ const ShoppingList = (props) => {
 	}
 	
 	const searchByType = () => {
-		props.getList("",search.type);
+		getList(search.type);
 		setSearch({
 			type:""
 		})
@@ -52,12 +54,12 @@ const ShoppingList = (props) => {
 	}
 	
 	const removeItem = (id) => {
-		props.removeItem(id);
+		remove(id);
 		changeMode("cancel");
 	}
 	
 	const editItem = (item) => {
-		props.editItem(item);
+		edit(item);
 		changeMode("cancel");
 	}
 

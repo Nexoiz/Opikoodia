@@ -138,7 +138,7 @@ const useAction = () => {
                         return;
                     case "add":
                         dispatch({
-                            "type":actionConstants.ADD_ITEM_FAILEDD,
+                            "type":actionConstants.ADD_ITEM_FAILED,
                             "error":"Failed to add new item. "+errorMessage
                         })
                         return;
