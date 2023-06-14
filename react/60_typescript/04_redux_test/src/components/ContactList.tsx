@@ -1,5 +1,4 @@
 import React from "react";
-import Contact from "../models/Contact";
 import { AppState } from "../reducers/contactReducer";
 import { useDispatch,useSelector } from "react-redux";
 
