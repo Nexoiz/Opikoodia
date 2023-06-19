@@ -21,7 +21,7 @@ const saveToStorage = (state:ShoppingState) => {
 const initialState = getInitialState();
 
 const shoppingReducer:Reducer<ShoppingState,AnyAction> = (state = initialState,action) => {
-	console.log("ShopppingReducer, action",action);
+	console.log("ShoppingReducer, action",action);
 	let tempState = {
 		...state
 	}
